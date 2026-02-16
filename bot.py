@@ -254,6 +254,53 @@ ANNOUNCEMENTS CHANNEL
 - Important updates, new promotions, program changes
 - Turn notifications on for this channel
 
+AFFILIATE PROGRAM TIERS (GENERAL VS TOP AFFILIATES)
+
+NTW Markets has two affiliate tiers: General Affiliates and Top Affiliates.
+
+GENERAL AFFILIATES
+- Entry-level tier for partners building their audience exposure
+- Core focus: Engagement and Consistency
+- What you receive:
+  - Monthly templated promotional designs (several style variants)
+  - Standard affiliate commission structure
+  - Access to affiliate knowledge resources and guidelines
+  - Eligibility to participate in affiliate growth challenges
+  - Opportunity to be promoted to Top Affiliate tier based on performance
+
+TOP AFFILIATES
+- Elite tier for high-performing partners with proven conversion results
+- Core focus: Strategic Partner Status
+- What you receive:
+  - Weekly 1-on-1 check-in calls (start and end of each week)
+  - Personalized branded design assets for your socials (customized for your affiliate brand)
+  - Direct 24/7 support from our internal team
+  - Access to private Top Affiliate community channels
+  - Strategic growth collaboration (you can pitch and execute your own promotion ideas with our team)
+  - Priority campaign opportunities and launches
+  - Enhanced visibility inside the affiliate ecosystem
+
+KEY TIER DIFFERENCES
+- Promotion Assets: General gets monthly templates, Top gets fully personalized branded assets
+- Communication: General gets standard support, Top gets direct 24/7 access plus weekly calls
+- Strategy: General uses provided materials, Top co-creates custom campaigns
+- Community: General has standard affiliate network, Top has private top affiliate channels
+- Growth Path: General has performance-based promotion eligibility, Top has strategic partner status
+
+HOW TO BECOME A TOP AFFILIATE
+We actively promote affiliates who demonstrate consistent promotion quality, audience trust, and measurable results. You can qualify through:
+1. Consistent Promotion Activity: Promote the broker at least 3x per week via story sequences, post trading content featuring the broker platform, share personal trading experience, educate your audience on broker reliability and performance
+2. Authentic Trading Presence: Show real platform usage, demonstrate executions, spreads, or trading sessions, position the broker as your primary trading environment
+3. Performance Metrics: We evaluate CTR on your affiliate links, conversion rate, active trader retention, and audience engagement quality
+4. Monthly Affiliate Challenges: Complete challenges such as 3 broker-focused story sequences per week for 4 weeks, 2 trading session videos using the broker, 1 educational post explaining broker advantages, documented trading proof content, achieving target CTR or conversions
+
+Affiliates who complete challenges and show strong metrics are upgraded to Top Affiliate Status.
+
+PROMOTION PHILOSOPHY
+Top Affiliates are not just promoters. They are trusted trading voices who actively use and represent the broker. Our goal is to support affiliates who trade on the broker, trust the broker, show the broker, and grow with the broker.
+
+========================================
+
 QUESTIONS THE BOT CAN ANSWER
 - How the IB program works (both Standard and Master IB)
 - Commission structure and how payment works
@@ -266,6 +313,7 @@ QUESTIONS THE BOT CAN ANSWER
 - Marketing compliance rules
 - Content strategy basics (the four pillars)
 - The marketing funnel steps
+- General Affiliates vs Top Affiliates (tiers, benefits, how to qualify)
 
 QUESTIONS THE BOT CANNOT ANSWER (ESCALATE TO HUMAN SUPPORT)
 - Account-specific issues it cannot verify
@@ -280,6 +328,7 @@ KEY LINKS
 - IB Dashboard: https://backoffice.nexttradewave.com/en/ib-room/dashboard
 - Course Location: Resources topic in Telegram or https://ibcoursenexttraderwave.netlify.app/course.html
 - Marketing Assets: Resources topics 1, 2, and 3 in Telegram
+- General vs Top Affiliates Structure Overview: https://www.canva.com/design/DAHBe8z7nfQ/WSicJeTeEVcCNeZajuQUug/edit?utm_content=DAHBe8z7nfQ&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton
 """
 
 logging.basicConfig(
