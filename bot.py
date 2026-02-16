@@ -121,28 +121,26 @@ IMPORTANT WARNING
 
 THE COURSE MODULES
 
-The full course is approximately 60 minutes. It has 5 sections.
+The full course is approximately 60 minutes. It has 4 sections.
 
 SECTION 1: INTRODUCTION
-- Video 1.1: Welcome to the Program
-- Video 1.2: How to Use the Telegram Community
+- Video 1.1: Welcome to the Program (breaks down how there's a lot of money to be made and how we're ready to scale)
+- Video 1.2: How to Use the Telegram Community (breaks down how to use the telegram community and where they could find things)
 
 SECTION 2: THE AFFILIATE STRUCTURE
-- Video 2.1: How You Get Paid (The Money Math)
-- Video 2.2: How to Make Sure You Get Paid (Your Unique Link)
+- Video 2.1: Full Dashboard Walkthrough
+- Video 2.2: How You Get Paid (The Money Math) (breaks down how the IB program works)
+- Video 2.3: How to Make Sure You Get Paid (Your Unique Link) (where they should find the link to get paid)
 
 SECTION 3: HOW TO PROPERLY MARKET
-- Video 3.1: The Core Marketing Blueprint (psychology, compliance, channels)
+- Video 3.1: The Core Marketing Blueprint (psychology, compliance, channels) (How to market, what not to do and what to do)
 
 SECTION 4: BRAND GROWTH AND CONTENT STRATEGY
-- Video 4.1: The Content Machine (short-form and long-form content)
-- Video 4.2: The Full Funnel Breakdown
-
-SECTION 5: THE AFFILIATE DASHBOARD
-- Video 5.1: Full Dashboard Walkthrough
+- Video 4.1: The Content Machine (short-form and long-form content) (how to grow with short form and long form content and also show people the breakdown of how to promote with it)
+- Video 4.2: The Full Funnel Breakdown (breaks down the funnel and how to sell)
 
 WHERE TO ACCESS THE COURSE
-- The course is available in the Resources topic in the Telegram channel
+- The course is available in the Resources topic in the Telegram channel or at this link: https://ibcoursenexttraderwave.netlify.app/course.html
 
 MARKETING COMPLIANCE RULES
 
@@ -280,25 +278,8 @@ QUESTIONS THE BOT CANNOT ANSWER (ESCALATE TO HUMAN SUPPORT)
 
 KEY LINKS
 - IB Dashboard: https://backoffice.nexttradewave.com/en/ib-room/dashboard
-- Course Location: Resources topic in Telegram
+- Course Location: Resources topic in Telegram or https://ibcoursenexttraderwave.netlify.app/course.html
 - Marketing Assets: Resources topics 1, 2, and 3 in Telegram
-
-========================================
-COURSE SCRIPTS REFERENCE
-========================================
-
-The course teaches affiliates the full system:
-- How the affiliate structure and commissions work (paid per lot, 4 levels deep)
-- The importance of always using your unique affiliate link (never send people to ntwmarkets.com directly)
-- The three core marketing channels: Instagram/YouTube, Email/Community Marketing, and Outreach
-- The psychology of why people deposit: Trust, Perceived Likelihood of Success, and Simplicity
-- The four content pillars: Authentic, Lifestyle, Educational, and Viral
-- Daily action: 2-3 short-form videos per day using the four pillars
-- Weekly action: 1 long-form video per week (usually YouTube)
-- The full funnel: Social Media > Dedicated Channels > Promo Sequences > DMs/Deposits
-- Promo sequences run every 7-10 days using the 3-part story sequence (Warm-up, Drop, Reminder)
-- DM closing uses the 4-step script to qualify, share link, verify signup, and guide to deposit
-- The dashboard tracks clicks, registrations, deposits/FTDs, commissions, and payouts
 """
 
 logging.basicConfig(
