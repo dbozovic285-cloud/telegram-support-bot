@@ -130,7 +130,8 @@ QUALIFICATION_QUESTIONS = {
         "What specifically is the issue? (can't follow, error, no results, etc.)",
     ],
     "general": [
-        "Give me a quick summary of what you need help with so I can pass it to our team.",
+        "What is the email address on your account?",
+        "Describe exactly what you need help with. Include any error messages, steps you have already tried, and what you expected to happen.",
     ],
 }
 
@@ -423,33 +424,22 @@ async def handle_message(update: Update, _) -> None:
         )
         return
 
-    # --- Check for escalation tag ---
+    # --- Strip escalation tag and store category if present ---
     match = ESCALATE_PATTERN.search(reply)
-    if match and SUPPORT_GROUP_ID:
+    clean_reply = ESCALATE_PATTERN.sub("", reply).strip() if match else reply.strip()
+
+    if match and SUPPORT_GROUP_ID and is_private:
         category = match.group(1).lower()
         if category not in QUALIFICATION_QUESTIONS:
             category = "general"
-
-        # Strip the tag from the displayed response
-        clean_reply = ESCALATE_PATTERN.sub("", reply).strip()
-
-        if not is_private:
-            msg = clean_reply + "\n\nTo get help from our team, send me a direct message and type Ticket." if clean_reply else "To get help from our team, send me a direct message and type Ticket."
-            await message.reply_text(msg)
-            return
-
-        # Store the escalation context so "Ticket" keyword knows the category
         pending_escalations[chat_id] = {
             "category": category,
             "original_query": user_text,
         }
 
-        # Show the helpful answer + CTA
-        cta = "\n\nIf you need further help from our team, type Ticket to create a support ticket."
-        await message.reply_text((clean_reply + cta) if clean_reply else cta.strip())
-
-    else:
-        await message.reply_text(reply)
+    # Every reply gets the ticket CTA — no exceptions
+    TICKET_CTA = "\n\nType Ticket to reach our support team."
+    await message.reply_text(clean_reply + TICKET_CTA)
 
 
 async def main() -> None:
