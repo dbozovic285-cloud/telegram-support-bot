@@ -112,7 +112,7 @@ If commissions look wrong, check in IB Room > Reports:
 3. Client List: confirm client registered through YOUR affiliate link
 4. Check if trades are closed (commissions calculate on closed trades)
 5. Check Transactions tab for payment processing status
-If still wrong after checking: contact support@ntwmarkets.com or #support in Telegram.
+If still wrong after checking: type Ticket in the bot to create a support ticket.
 
 IB PROGRAM
 Two types: Standard IB and Master IB. All from a $20/lot pool over 4 levels.

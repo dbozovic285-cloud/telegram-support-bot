@@ -43,7 +43,7 @@ HOW TO ANSWER
 2. When relevant, include the specific navigation path (e.g. "Go to IB Room > Reports > Trades tab")
 3. Include the relevant link if one exists
 4. If the person seems confused, walk them through it step by step
-5. End with: "Did that answer your question? If you need more help, our support team is here for you."
+5. End with: "Did that answer your question?"
 
 RULES
 - Only answer using facts from your knowledge base below
@@ -54,13 +54,10 @@ RULES
 - Think logically. If someone describes a problem, reason through possible causes using what you know before escalating.
 
 ESCALATION
-Only escalate when you truly cannot help. Before escalating, try to:
-- Check if the answer is in your knowledge base
-- Reason through the problem logically
-- Point them to the right section of the dashboard or the right support channel
+Try to answer using your knowledge base first. When human support is needed (account-specific disputes, unresolvable bugs, specific payout amounts you cannot verify):
 
-If you still cannot help, respond with ONLY this tag and nothing else:
-[ESCALATE:category]
+1. Provide whatever helpful information or troubleshooting steps you can
+2. On the very last line of your response, add the tag: [ESCALATE:category]
 
 Categories:
 - commission: Commission disputes, missing payouts, wrong amounts
@@ -69,10 +66,12 @@ Categories:
 - copy_trading: Copy trading or PAMM issues that need human help
 - general: Anything else that needs human support
 
-Example: If someone says their commissions are wrong and you cannot resolve it, respond with only:
-[ESCALATE:commission]
+The [ESCALATE:category] tag must be the very last line, alone, with no text after it.
+Do NOT mention support@ntwmarkets.com or any support channels. The bot handles routing to support.
 
-Do NOT add any other text before or after the tag. Just the tag.
+Example:
+"Here are some things to check in IB Room > Reports...
+[ESCALATE:commission]"
 
 KNOWLEDGE BASE
 {KNOWLEDGE_BASE}
@@ -130,9 +129,14 @@ QUALIFICATION_QUESTIONS = {
     ],
 }
 
-# {chat_id: {"category", "questions", "answers", "current_q", "original_query",
-#             "user_id", "username", "first_name", "context"}}
+# {chat_id: {"category", "questions", "answers", "current_q", "stage",
+#             "additional_info", "original_query", "user_id", "username",
+#             "first_name", "context"}}
 ticket_states: dict[int, dict] = {}
+
+# Stores escalation context while waiting for user to type "Ticket"
+# {chat_id: {"category": "commission", "original_query": "..."}}
+pending_escalations: dict[int, dict] = {}
 
 
 def start_qualification(chat_id: int, category: str, original_query: str,
@@ -144,6 +148,8 @@ def start_qualification(chat_id: int, category: str, original_query: str,
         "questions": questions,
         "answers": [],
         "current_q": 0,
+        "stage": "questions",
+        "additional_info": "",
         "original_query": original_query,
         "user_id": user.id,
         "username": user.username or "",
@@ -151,32 +157,54 @@ def start_qualification(chat_id: int, category: str, original_query: str,
         "context": context_lines,
     }
     intro = (
-        "I want to make sure our support team has everything they need to help you quickly. "
-        "Let me ask a couple of questions.\n\n"
+        "I'll create a support ticket for you. Type Exit at any time to cancel.\n\n"
     )
     return intro + questions[0]
 
 
 def handle_ticket_response(chat_id: int, user_text: str) -> str | None:
-    """Process a user's answer during qualification. Returns the next message or None if done."""
+    """Process a user response during ticket flow. Returns next message, or None to send ticket."""
     state = ticket_states.get(chat_id)
     if not state:
         return None
 
-    # Cancel keywords
-    if user_text.lower().strip() in ("cancel", "nevermind", "never mind", "stop", "exit"):
+    stage = state.get("stage", "questions")
+    text = user_text.strip()
+
+    # Only "Exit" cancels - works at any stage
+    if text.lower() == "exit":
         del ticket_states[chat_id]
-        return "No problem, ticket cancelled. You can ask me anything else or just start over."
+        return "Ticket cancelled. Feel free to ask me anything else."
 
-    # Record answer
-    state["answers"].append(user_text)
-    state["current_q"] += 1
+    if stage == "questions":
+        state["answers"].append(text)
+        state["current_q"] += 1
 
-    # More questions?
-    if state["current_q"] < len(state["questions"]):
-        return state["questions"][state["current_q"]]
+        # More category questions?
+        if state["current_q"] < len(state["questions"]):
+            return state["questions"][state["current_q"]]
 
-    # All questions answered - ticket is ready to send
+        # All category questions done - ask for additional info
+        state["stage"] = "additional_info"
+        return (
+            "Is there anything else you'd like to add that could help our team?\n\n"
+            "Add it here, or type Submit to send your ticket now."
+        )
+
+    elif stage == "additional_info":
+        if text.lower() == "submit":
+            # Send with no additional info
+            return None
+        # Save additional info, ask for submit confirmation
+        state["additional_info"] = text
+        state["stage"] = "await_submit"
+        return "Got it. Type Submit to send your ticket to the team."
+
+    elif stage == "await_submit":
+        if text.lower() == "submit":
+            return None  # Send the ticket
+        return "Type Submit to send your ticket, or Exit to cancel."
+
     return None
 
 
@@ -199,6 +227,10 @@ def build_ticket_message(state: dict) -> str:
     if state.get("context"):
         context_section = "\nRecent conversation:\n" + "\n".join(state["context"]) + "\n"
 
+    additional_section = ""
+    if state.get("additional_info"):
+        additional_section = f"\nAdditional info:\n  {state['additional_info']}\n"
+
     ticket = (
         f"NEW SUPPORT TICKET\n"
         f"{'=' * 30}\n\n"
@@ -208,6 +240,7 @@ def build_ticket_message(state: dict) -> str:
         f"Time: {now}\n\n"
         f"Original question:\n\"{state['original_query']}\"\n\n"
         f"Details collected:\n{details}\n"
+        f"{additional_section}"
         f"{context_section}\n"
         f"Click {username_display} to message them directly."
     )
@@ -233,22 +266,24 @@ def get_recent_context(chat_id: int, max_turns: int = 3) -> list[str]:
     """Extract the last few exchanges from chat history for ticket context."""
     history = chat_histories.get(chat_id, [])
     lines = []
-    # history is list of {"role": "user"/"model", "parts": [...]}
+    # history is list of Content proto objects with .role and .parts attributes
     for entry in history[-(max_turns * 2):]:
-        role = entry.get("role", "unknown")
-        parts = entry.get("parts", [])
-        text = ""
-        for part in parts:
-            if isinstance(part, str):
-                text = part
-            elif hasattr(part, "text"):
-                text = part.text
-        if text:
-            label = "User" if role == "user" else "Bot"
-            # Truncate long messages
-            if len(text) > 200:
-                text = text[:200] + "..."
-            lines.append(f"  {label}: {text}")
+        try:
+            role = getattr(entry, "role", "unknown")
+            parts = getattr(entry, "parts", [])
+            text = ""
+            for part in parts:
+                if isinstance(part, str):
+                    text = part
+                elif hasattr(part, "text"):
+                    text = part.text
+            if text:
+                label = "User" if role == "user" else "Bot"
+                if len(text) > 200:
+                    text = text[:200] + "..."
+                lines.append(f"  {label}: {text}")
+        except Exception:
+            continue
     return lines
 
 
@@ -293,7 +328,7 @@ async def handle_message(update: Update, _) -> None:
     if not user_text:
         return
 
-    # --- Ticket qualification flow (active) ---
+    # --- Ticket flow (active - collecting answers) ---
     if chat_id in ticket_states:
         if not is_private:
             await message.reply_text(
@@ -304,25 +339,41 @@ async def handle_message(update: Update, _) -> None:
 
         next_msg = handle_ticket_response(chat_id, user_text)
         if next_msg:
-            # More questions to ask
             await message.reply_text(next_msg)
         else:
-            # Qualification complete - send ticket
+            # Flow complete (user typed Submit) - send ticket
             state = ticket_states.pop(chat_id)
             sent = await send_ticket_to_support(message.get_bot(), state)
             if sent:
                 await message.reply_text(
-                    "Got it! I have passed your details to our support team. "
-                    "Someone will reach out to you directly on Telegram shortly.\n\n"
-                    "If you do not hear back within a few hours, you can also "
-                    "email support@ntwmarkets.com."
+                    "Your ticket has been submitted. Our team will reach out to "
+                    "you directly on Telegram shortly."
                 )
             else:
                 await message.reply_text(
                     "I was not able to submit your ticket right now. "
-                    "Please reach out directly to support@ntwmarkets.com "
-                    "and include the details you just shared with me."
+                    "Please email support@ntwmarkets.com with the details you shared."
                 )
+        return
+
+    # --- "Ticket" keyword - user wants to create a ticket ---
+    if user_text.strip().lower() == "ticket":
+        if not is_private:
+            await message.reply_text(
+                "Please send me a direct message to create a support ticket. "
+                "Tap my name and hit 'Message'."
+            )
+            return
+        pending = pending_escalations.pop(chat_id, {
+            "category": "general",
+            "original_query": "User requested support ticket",
+        })
+        context_lines = get_recent_context(chat_id)
+        first_question = start_qualification(
+            chat_id, pending["category"], pending["original_query"],
+            message.from_user, context_lines
+        )
+        await message.reply_text(first_question)
         return
 
     # --- Normal Gemini flow ---
@@ -340,30 +391,25 @@ async def handle_message(update: Update, _) -> None:
         if category not in QUALIFICATION_QUESTIONS:
             category = "general"
 
+        # Strip the tag from the displayed response
+        clean_reply = ESCALATE_PATTERN.sub("", reply).strip()
+
         if not is_private:
-            # In groups, direct user to DM the bot
-            await message.reply_text(
-                "I think our support team can help with this. "
-                "Please send me a direct message so I can gather your details "
-                "and create a ticket. Tap my name and hit 'Message'."
-            )
+            msg = clean_reply + "\n\nTo get help from our team, send me a direct message and type Ticket." if clean_reply else "To get help from our team, send me a direct message and type Ticket."
+            await message.reply_text(msg)
             return
 
-        # Start qualification in private chat
-        context_lines = get_recent_context(chat_id)
-        first_question = start_qualification(
-            chat_id, category, user_text, message.from_user, context_lines
-        )
-        await message.reply_text(first_question)
-    elif match and not SUPPORT_GROUP_ID:
-        # Escalation triggered but no support group configured - fall back
-        await message.reply_text(
-            "I think our support team can help with this. "
-            "Please reach out to support@ntwmarkets.com or the #support "
-            "channel on Telegram and they will get back to you."
-        )
+        # Store the escalation context so "Ticket" keyword knows the category
+        pending_escalations[chat_id] = {
+            "category": category,
+            "original_query": user_text,
+        }
+
+        # Show the helpful answer + CTA
+        cta = "\n\nIf you need further help from our team, type Ticket to create a support ticket."
+        await message.reply_text((clean_reply + cta) if clean_reply else cta.strip())
+
     else:
-        # Normal response
         await message.reply_text(reply)
 
 
