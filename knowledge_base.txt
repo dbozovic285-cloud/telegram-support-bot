@@ -1,0 +1,189 @@
+NTW MARKETS KNOWLEDGE BASE
+
+COMPANY
+NTW Markets Ltd. | "Next to Win!" | Founded 2025
+Reg #2025-00138 | Saint Lucia IBC | LEI: 894500G0RS35JW2V0688
+Address: Top Floor, Rodney Court Building, Rodney Village, Rodney Bay, Gros-Islet, LC01 101, Saint Lucia
+Support: support@ntwmarkets.com | 24/7 multilingual | Live chat + email + tickets
+Trustpilot: 4.1/5 (49 reviews)
+Not available to USA residents.
+
+ACCOUNT TYPES
+Standard: $100 min deposit, 1.6 pip spreads, commission per trade, 1:400 leverage
+VIP: $5,000 min, 1.2 pip spreads, commission-free, 1:200 leverage
+Corporate: $5,000 min, 0.6 pip spreads, commission-free, 1:100 leverage
+Demo: Free, no verification needed, risk-free practice
+All account types access the same instruments.
+
+INSTRUMENTS (150+)
+Forex: 40+ pairs (majors, minors, exotics) from 0.0 pip spreads
+Metals: Gold XAU/USD (avg spread 1.1), Silver XAG/USD (avg 1.12)
+Indices: Dow Jones, S&P 500, Nasdaq, other global
+Commodities: Crude Oil (avg spread 1.15), others
+Crypto CFDs: BTC/USD (avg 0.40), ETH/USD (avg 0.80), XRP, meme coins, stablecoins
+Stock CFDs: US shares, commission-free
+
+PLATFORMS
+MT5 (MetaTrader 5): Industry standard. Desktop, Mobile, Web. Advanced charting, Expert Advisors, algorithmic trading. Path: Platforms > MT5. Download via QR code on that page. Click "+ Add Account" to create new accounts (Live or Demo). Each card shows account number, type, leverage, balance, equity.
+
+TradeLocker (New): Next-gen platform built from 2.5M+ trader feedback. TradingView charting, Risk Calculator, SL/TP Calculator, one-click trading, 0.01 micro lots, 500+ assets, Algotrading AI. Desktop, Mobile, Web (tradelocker.com). Path: Platforms > TradeLocker > "Create New Account."
+
+To create a trading account: Go to Platforms, pick MT5 or TradeLocker, click Add/Create Account, select type + currency + leverage.
+
+BACKOFFICE NAVIGATION (backoffice.ntwmarkets.com)
+Sidebar sections: Dashboard, Wallets, Platforms (MT5, TradeLocker), Funds, Transaction History, NTW Copy (Account List, Leaderboard), IB Room (Dashboard, Promo, Reports), Pamm (Leaderboard, Account List), Savings, 10X Account.
+
+Dashboard shows: Verification banner, Portfolio (tabs: All / Trading Accounts / Wallet), Balance, Deposit + Transfer + Withdrawal buttons, Last Transactions, Trading Accounts list with "+ Create New."
+
+WALLETS
+Hold funds before transfer to trading accounts. Shows Estimated Total, each wallet has Base Value + On Hold. Filter: All/Favorites/Fiat. Sort: Default/Name/Balance.
+Money flow: Deposit into wallet > Transfer to trading account > Trade > Transfer back to wallet > Withdraw.
+
+VERIFICATION (KYC)
+Provider: Sumsub. Takes ~4 minutes.
+Requirements: Selfie + Proof of Identity (passport, driver license, or national ID).
+Path: Click "Verify Now" banner on dashboard, or go to Verification page > "Upgrade."
+
+Level 0 (Not Verified) can: Demo accounts, crypto deposits. Cannot: Live accounts, crypto withdrawals, fiat deposits, fiat withdrawals.
+Level 1 (Verified) can: Live accounts, crypto deposits, fiat withdrawals (with limits). Some features may need additional verification.
+Accreditation tests required for high-risk instruments (unqualified investors).
+
+DEPOSITS
+Methods: Bank wire (2-5 business days), Visa/MasterCard (minutes), Crypto/Bitcoin (minutes).
+No deposit fees from NTW (bank/processor may charge their own).
+Path: Dashboard > "Deposit" button, or Funds > Deposit.
+
+WITHDRAWALS
+Methods: Bank transfer (processed within 24hrs, over $5K up to 5 days), E-wallet/Crypto (1-6 hours), Cards.
+Minimums: Bank $250, E-wallet $100. No withdrawal fees from NTW.
+Must be verified (KYC) first. Email confirmation required for security.
+Path: Transfer funds from trading account to wallet first, then Dashboard > "Withdrawal" or Funds > Withdrawal.
+
+NTW COPY (COPY TRADING)
+Two roles: Master (signal provider who trades) and Investor (follower who copies).
+Platform: B2COPY.
+
+To follow a trader (Investor):
+Path: NTW Copy > Leaderboard. Browse providers by Return (Total), Return (7d), Score (/100), Followers, AUM. Click "Follow." Some require minimum deposit (shown next to button, usually $100+). Trades auto-copy to your account. Adjust or disconnect anytime.
+
+To become a signal provider (Master):
+Path: NTW Copy > Account List > click "Master."
+Step 1: Platform (B2COPY MASTER ACC), Currency (USD), Leverage (e.g. 100).
+Step 3: Fee Plan: Performance Fee (% of net profit, weekly/etc), Volume Fee ($/lot), Joining Fee (one-time $). All can be 0.
+Step 4: Nickname + profile picture (optional).
+Then deposit funds and start trading. Performance shows on Leaderboard.
+
+How to guide a client to copy trading: Tell them to go to NTW Copy > Leaderboard, browse providers, click "Follow," and make sure they have enough funds deposited.
+
+PAMM (Percentage Allocation Management Module)
+Pools investor funds into one managed account. Profits/losses distributed proportionally. NAV calculated hourly.
+Investor min deposit: $50. Money Manager min deposit: $500.
+Path: Pamm > Leaderboard to browse managers, click "Follow." Or Pamm > Account List > "Master" to become a manager.
+Manager strategies are protected from reverse engineering.
+
+Copy vs PAMM: Copy mirrors individual trades to your account (you see every trade). PAMM pools funds (you see returns only). Copy min varies per provider ($100+). PAMM investor min $50.
+
+Both leaderboards show: Name, days active, risk level, Return (Total), Return (7d), Score/100, Followers, AUM.
+
+IB ROOM
+Path: IB Room in sidebar.
+
+Dashboard: Shows current plan ("Default Plan $20 4 levels"). Two reports:
+- Acquisition Report: Clicks + Registrations by date
+- Trading Report: Active Traders + Trading Volume + Reward Amount
+Customizable with "+ Add Widget."
+
+Promo: Two tabs.
+- Links: Your affiliate link with copy button (format: https://backoffice.nexttradewave.com/register?referral=YOUR_ID). Settings: Landing Page, Language, UTM Parameters. QR Code generator (custom color + icon).
+- Banners: Downloadable promotional banners, filter by size/program.
+
+Reports: 6 tabs with filters.
+- Acquisitions: Click/signup conversion data
+- Client List: All referred clients (total count)
+- Accounts: Trading accounts your clients created
+- Rewards: Commission earnings breakdown
+- Transactions: Commission payment history
+- Trades: Individual trades by your clients (lot volumes that generate commissions)
+
+COMMISSION TROUBLESHOOTING
+If commissions look wrong, check in IB Room > Reports:
+1. Trades tab: verify client trades and lot volumes
+2. Rewards tab: verify commission calculations match your rate
+3. Client List: confirm client registered through YOUR affiliate link
+4. Check if trades are closed (commissions calculate on closed trades)
+5. Check Transactions tab for payment processing status
+If still wrong after checking: contact support@ntwmarkets.com or #support in Telegram.
+
+IB PROGRAM
+Two types: Standard IB and Master IB. All from a $20/lot pool over 4 levels.
+
+Standard IB (Growth Engine): L1 $15/lot, L2 $3/lot, L3 $1/lot, L4 $1/lot. For new IBs, simple start, focus on helping others.
+Master IB (Leadership): L1 $20/lot, L2 $5/lot, L3 $2/lot, L4 $1/lot. For leaders who build/train/support Standard IBs.
+
+Payment: Per lot traded by referred clients. Passive and recurring as long as clients trade. Check commissions: IB Room > Reports > Rewards + Trades tabs.
+
+POWER OF 10
+Scale through teaching, not personal trading. Teach 10 people to build 10 traders trading 10 lots each.
+
+Standard IB at full scale: L1: 10 IBs, 100 lots = $1,500/mo | L2: 100 IBs, 1K lots = $3,000/mo | L3: 1K IBs, 10K lots = $10,000/mo | L4: 10K IBs, 100K lots = $100,000/mo | Total: $114,500/mo.
+Master IB at full scale: L1 = $2,000/mo | L2 = $5,000/mo | L3 = $20,000/mo | L4 = $100,000/mo | Total: $127,000/mo.
+
+AFFILIATE LINK
+Critical: without it, you earn nothing. Path: IB Room > Promo > Links tab.
+Link format: https://backoffice.nexttradewave.com/register?referral=YOUR_ID
+Settings: Landing Page, Language, UTM params, QR code.
+NEVER send people to ntwmarkets.com directly. Always use your unique link in every promo, story, email, and DM.
+
+IB COURSE
+~60 minutes, 4 sections, 8 videos.
+S1: Welcome + Telegram Community. S2: Dashboard Walkthrough + Money Math + Unique Link. S3: Core Marketing Blueprint. S4: Content Machine + Full Funnel Breakdown.
+Access: Resources topic in Telegram or https://ibcoursenexttraderwave.netlify.app/course.html
+
+MARKETING COMPLIANCE
+Allowed: Disclose affiliate relationship (#ad), focus on education, share genuine experiences.
+NOT allowed: Income claims/guarantees, "guaranteed returns," pressure tactics, promising specific earnings, misleading about trading risks. Violations = account terminated.
+
+CONTENT PILLARS
+1. Authentic: Real thoughts, genuine journey. 2. Lifestyle: Show trading funding the life followers want. 3. Educational: Teach concepts, build credibility. 4. Viral: Hot takes, fast edits, trending topics.
+
+MARKETING FUNNEL
+Step 1: Social media (IG, YouTube, TikTok) for views/trust. Step 2: Dedicated channels (Telegram) for nurturing. Step 3: Promo sequences every 7-10 days. Step 4: DMs to close deposits (4-step script).
+
+TELEGRAM CHANNELS
+Welcome: Pinned start info. Resources (Topics 1-3): Guides, templates, compliance docs, course. Wins: Post successes. Support: Technical issues, payout questions (bot is here). Community: Chatroom for feedback/brainstorming. Announcements: Read-only updates (turn notifications on).
+
+AFFILIATE TIERS
+General Affiliates: Entry-level. Monthly template designs, standard commissions, knowledge resources, growth challenge eligibility, promotion path to Top.
+Top Affiliates: Elite. Weekly 1-on-1 calls, personalized branded assets, 24/7 direct support, private channels, strategic growth collaboration, priority campaigns.
+How to qualify: Promote 3x/week, show real platform usage, strong metrics (CTR, conversions, retention), complete monthly challenges.
+
+SAVINGS
+Path: Savings in sidebar. Two types: Fixed (locked period) and Flexible (withdraw anytime).
+Available Flexible plans: "5-10% A month" (all currencies, 120% annual) and "AIN" (USD, 30-48% annual, $10,000 minimum).
+Path: Available Savings tab > choose Fixed/Flexible > Subscribe/Create > track in My Savings tab.
+
+10X ACCOUNT
+Prop-firm style feature where traders can get 10x their capital. Has its own Account List in sidebar. For details contact support@ntwmarkets.com.
+
+SECURITY
+Segregated client accounts. Negative balance protection. 128-bit SSL encryption. Email verification on withdrawals. Advanced platform encryption.
+
+PROMOTIONS
+100% Deposit Bonus available. Terms may vary, contact support for details.
+
+EXECUTION
+Instant execution, ultra-fast, minimal latency. Tier 1 liquidity. Tight spreads.
+
+KEY LINKS
+Website: ntwmarkets.com
+Backoffice: backoffice.ntwmarkets.com
+IB Dashboard: backoffice.ntwmarkets.com/en/ib-room/dashboard
+IB Promo: backoffice.ntwmarkets.com/en/ib-room/promo
+IB Reports: backoffice.ntwmarkets.com/en/ib-room/reports
+Copy Leaderboard: backoffice.ntwmarkets.com/en/copy/1/leaderboard
+PAMM Leaderboard: backoffice.ntwmarkets.com/en/pamm-new/1/leaderboard
+Verification: backoffice.ntwmarkets.com/en/verification
+IB Course: https://ibcoursenexttraderwave.netlify.app/course.html
+Support: support@ntwmarkets.com
+Trustpilot: trustpilot.com/review/ntwmarkets.com
+Affiliate Tiers Overview: https://www.canva.com/design/DAHBe8z7nfQ/WSicJeTeEVcCNeZajuQUug/edit
