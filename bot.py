@@ -287,16 +287,47 @@ def get_recent_context(chat_id: int, max_turns: int = 3) -> list[str]:
     return lines
 
 
-def get_gemini_response(chat_id: int, user_message: str) -> str:
-    history = chat_histories.setdefault(chat_id, [])
+# Per-chat locks so rapid messages queue up instead of racing to Gemini
+chat_locks: dict[int, asyncio.Lock] = {}
 
+
+def _get_chat_lock(chat_id: int) -> asyncio.Lock:
+    if chat_id not in chat_locks:
+        chat_locks[chat_id] = asyncio.Lock()
+    return chat_locks[chat_id]
+
+
+def _call_gemini(chat_id: int, user_message: str) -> str:
+    """Synchronous Gemini call - runs in a thread via asyncio.to_thread."""
+    history = chat_histories.setdefault(chat_id, [])
     chat = model.start_chat(history=history)
     response = chat.send_message(user_message)
-
-    # Persist the updated history (includes the new user+model turn)
     chat_histories[chat_id] = chat.history
-
     return response.text
+
+
+async def get_gemini_response(chat_id: int, user_message: str) -> str:
+    """Async wrapper with retry + backoff for transient Gemini errors."""
+    last_exc = None
+    for attempt in range(3):
+        try:
+            return await asyncio.to_thread(_call_gemini, chat_id, user_message)
+        except Exception as e:
+            last_exc = e
+            msg = str(e).lower()
+            transient = any(k in msg for k in (
+                "429", "resource exhausted", "quota",
+                "503", "service unavailable", "deadline exceeded",
+                "internal", "unavailable",
+            ))
+            if transient and attempt < 2:
+                wait = (attempt + 1) * 3  # 3s then 6s
+                logger.warning("Gemini transient error (attempt %d), retry in %ds: %s",
+                               attempt + 1, wait, e)
+                await asyncio.sleep(wait)
+            else:
+                break
+    raise last_exc
 
 
 async def start_command(update: Update, _) -> None:
@@ -378,10 +409,13 @@ async def handle_message(update: Update, _) -> None:
 
     # --- Normal Gemini flow ---
     try:
-        reply = get_gemini_response(chat_id, user_text)
+        async with _get_chat_lock(chat_id):
+            reply = await get_gemini_response(chat_id, user_text)
     except Exception:
         logger.exception("Gemini API error")
-        await message.reply_text("Sorry, something went wrong. Please try again.")
+        await message.reply_text(
+            "I am having trouble connecting right now. Please send your message again in a moment."
+        )
         return
 
     # --- Check for escalation tag ---
