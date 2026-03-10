@@ -502,7 +502,7 @@ async def main() -> None:
     async with app:
         await app.initialize()
         await app.start()
-        await app.updater.start_polling()
+        await app.updater.start_polling(allowed_updates=["message", "chat_member", "my_chat_member"])
         # Run until interrupted
         try:
             await asyncio.Event().wait()
