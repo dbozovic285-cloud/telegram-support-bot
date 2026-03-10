@@ -25,10 +25,13 @@ IB_GROUP_ID = os.environ.get("IB_GROUP_ID")  # NTW IB Network group ID
 BOT_USERNAME = "NtwSosBot"
 
 WELCOME_DM = (
-    "Hey {first_name}, welcome in.\n\n"
-    "Head to the Resources tab first -- the onboarding checklist will walk you through "
-    "everything in 5 steps. Should take you less than an hour to be fully set up.\n\n"
-    "Any questions, reply here or drop them in the Support tab. Either way I will see it.\n\n"
+    "Hey {first_name}, welcome to the NTW IB Network.\n\n"
+    "This group exists to help you earn more as an IB. Every week you get done-for-you promotions, "
+    "marketing assets, and strategies you can use straight away to grow your network and increase your commissions.\n\n"
+    "You don't have to figure out how to market NTW on your own. That's what this is for.\n\n"
+    "To get started, head to the Resources tab and go through the onboarding checklist. "
+    "It sets you up in 5 steps so you can hit the ground running.\n\n"
+    "Any questions, just reply here.\n\n"
     "Let's get you earning."
 )
 
