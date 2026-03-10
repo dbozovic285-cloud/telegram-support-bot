@@ -10,6 +10,7 @@ import google.generativeai as genai
 from telegram import Update
 from telegram.ext import (
     Application,
+    ChatMemberHandler,
     CommandHandler,
     MessageHandler,
     filters,
@@ -20,7 +21,16 @@ load_dotenv()
 TELEGRAM_BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
 SUPPORT_GROUP_ID = os.environ.get("SUPPORT_GROUP_ID")  # Optional until configured
+IB_GROUP_ID = os.environ.get("IB_GROUP_ID")  # NTW IB Network group ID
 BOT_USERNAME = "NtwSosBot"
+
+WELCOME_DM = (
+    "Hey {first_name}, welcome in.\n\n"
+    "Head to the Resources tab first -- the onboarding checklist will walk you through "
+    "everything in 5 steps. Should take you less than an hour to be fully set up.\n\n"
+    "Any questions, reply here or drop them in the Support tab. Either way I will see it.\n\n"
+    "Let's get you earning."
+)
 
 # Load knowledge base from external file
 KB_PATH = Path(__file__).parent / "knowledge_base.txt"
@@ -336,6 +346,58 @@ async def get_gemini_response(chat_id: int, user_message: str) -> str:
     raise last_exc
 
 
+async def welcome_new_member(update: Update, context) -> None:
+    """Fire a private welcome DM when someone joins the IB group."""
+    result = update.chat_member
+    if not result:
+        return
+
+    # Only trigger for the configured IB group
+    if IB_GROUP_ID and str(result.chat.id) != str(IB_GROUP_ID):
+        return
+
+    old_status = result.old_chat_member.status
+    new_status = result.new_chat_member.status
+
+    # Joined = was outside (left/kicked/banned), now is member or restricted
+    joined = old_status in ("left", "kicked", "banned") and new_status in ("member", "restricted")
+    if not joined:
+        return
+
+    user = result.new_chat_member.user
+    if user.is_bot:
+        return
+
+    first_name = user.first_name or "there"
+    try:
+        await context.bot.send_message(
+            chat_id=user.id,
+            text=WELCOME_DM.format(first_name=first_name),
+        )
+        logger.info("Welcome DM sent to %s (ID: %d)", first_name, user.id)
+    except Exception as e:
+        # User hasn't started the bot yet -- fall back to a group mention
+        logger.warning("Could not DM %s (%d): %s -- sending group welcome", first_name, user.id, e)
+        try:
+            await context.bot.send_message(
+                chat_id=result.chat.id,
+                text=(
+                    f"Hey {user.mention_html()}, welcome in! "
+                    "Head to the Resources tab and start the onboarding checklist -- "
+                    "5 steps and you're fully set up. Any questions, DM me directly."
+                ),
+                parse_mode="HTML",
+            )
+        except Exception:
+            logger.exception("Group welcome fallback also failed for %s", first_name)
+
+
+async def groupid_command(update: Update, _) -> None:
+    """Utility: reply with the current chat ID (use this to find the IB group ID)."""
+    chat = update.effective_chat
+    await update.message.reply_text(f"Chat ID: {chat.id}\nChat title: {chat.title or 'N/A'}")
+
+
 async def start_command(update: Update, _) -> None:
     await update.message.reply_text(
         "Hi! I'm the NTW support bot. Send me a message and I'll do my best to help."
@@ -445,6 +507,8 @@ async def handle_message(update: Update, _) -> None:
 async def main() -> None:
     app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start_command))
+    app.add_handler(CommandHandler("groupid", groupid_command))
+    app.add_handler(ChatMemberHandler(welcome_new_member, ChatMemberHandler.CHAT_MEMBER))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
     logger.info("Bot started")
