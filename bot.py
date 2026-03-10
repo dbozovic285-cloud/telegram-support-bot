@@ -382,11 +382,6 @@ async def welcome_new_member(update: Update, context) -> None:
         logger.warning("Could not DM %s (%d): %s", first_name, user.id, e)
 
 
-async def groupid_command(update: Update, _) -> None:
-    """Utility: reply with the current chat ID (use this to find the IB group ID)."""
-    chat = update.effective_chat
-    await update.message.reply_text(f"Chat ID: {chat.id}\nChat title: {chat.title or 'N/A'}")
-
 
 async def start_command(update: Update, _) -> None:
     await update.message.reply_text(
@@ -497,7 +492,6 @@ async def handle_message(update: Update, _) -> None:
 async def main() -> None:
     app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start_command))
-    app.add_handler(CommandHandler("groupid", groupid_command))
     app.add_handler(ChatMemberHandler(welcome_new_member, ChatMemberHandler.CHAT_MEMBER))
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
 
