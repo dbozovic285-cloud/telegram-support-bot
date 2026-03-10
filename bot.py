@@ -376,20 +376,7 @@ async def welcome_new_member(update: Update, context) -> None:
         )
         logger.info("Welcome DM sent to %s (ID: %d)", first_name, user.id)
     except Exception as e:
-        # User hasn't started the bot yet -- fall back to a group mention
-        logger.warning("Could not DM %s (%d): %s -- sending group welcome", first_name, user.id, e)
-        try:
-            await context.bot.send_message(
-                chat_id=result.chat.id,
-                text=(
-                    f"Hey {user.mention_html()}, welcome in! "
-                    "Head to the Resources tab and start the onboarding checklist -- "
-                    "5 steps and you're fully set up. Any questions, DM me directly."
-                ),
-                parse_mode="HTML",
-            )
-        except Exception:
-            logger.exception("Group welcome fallback also failed for %s", first_name)
+        logger.warning("Could not DM %s (%d): %s", first_name, user.id, e)
 
 
 async def groupid_command(update: Update, _) -> None:
